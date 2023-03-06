@@ -8,6 +8,8 @@ import "@fontsource/roboto/300.css"
 import "@fontsource/roboto/400.css"
 import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
+import { Buffer } from "buffer"
+global.Buffer = Buffer
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(

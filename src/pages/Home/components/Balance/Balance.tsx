@@ -7,7 +7,6 @@ import { Loader } from "@/components/common"
 import { BalanceItem } from "@/pages/Home/components/Balance/BalanceItem"
 import { NearIconSvg } from "@/assets/icons"
 import { utils } from "near-api-js"
-import { formatNearAmount } from "near-api-js/lib/utils/format"
 
 export const Balance = memo(() => {
   const { data, isLoading, isError } = useQuery<AccountBalance>(
@@ -28,7 +27,7 @@ export const Balance = memo(() => {
   }, [data, isError, isLoading])
 
   return (
-    <Card sx={{ width: 400, minHeight: 150, marginTop: 2 }}>
+    <Card sx={{ width: 400, minHeight: 150, marginRight: 2 }}>
       <CardContent>
         <Typography variant={"h5"} gutterBottom>
           Your balance
