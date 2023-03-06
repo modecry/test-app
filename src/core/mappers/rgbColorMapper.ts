@@ -1,4 +1,3 @@
-import { RGBColor } from "react-color"
 import { RGBType } from "@/infra/common/RGB.type"
 import { IContractRGBValue } from "@/infra/near/methods/ContractRGB.interface"
 
