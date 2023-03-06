@@ -9,11 +9,11 @@ import { IContractRGBValue } from "@/infra/near/methods/ContractRGB.interface"
 export interface IContractItemProps {
   name: string
   rgbColor: RGBType
-  handleChangeRgb: (rgbValue: RGBType) => void
+  handleChangeRgb: (rgbValue: IContractRGBValue) => void
 }
 
 export const ContractItem: React.FC<IContractItemProps> = memo(props => {
-  const { name, rgbColor } = props
+  const { name, rgbColor, handleChangeRgb } = props
   const [color, setColor] = useState<IContractRGBValue>(rgbColorMapper(rgbColor))
   const [isTriggeredChanges, setTriggeredChanges] = useState(false)
 
@@ -29,7 +29,13 @@ export const ContractItem: React.FC<IContractItemProps> = memo(props => {
       </Typography>
       <div style={{ display: "flex", justifyContent: "flex-end", flexDirection: "column" }}>
         <HuePicker onChange={handleChangeColor} color={color} />
-        <Button variant={"contained"} color={"primary"} style={{ marginTop: 10 }} disabled={!isTriggeredChanges}>
+        <Button
+          variant={"contained"}
+          color={"primary"}
+          style={{ marginTop: 10 }}
+          disabled={!isTriggeredChanges}
+          onClick={() => handleChangeRgb(color)}
+        >
           {isTriggeredChanges ? "Save color" : "Please change color"}
         </Button>
       </div>
@@ -40,7 +46,7 @@ export const ContractItem: React.FC<IContractItemProps> = memo(props => {
 const ContractWrapper = styled.div<{ itemColor: IContractRGBValue }>`
   display: flex;
   justify-content: space-between;
-  border: 1px solid ${({ itemColor }) => `rgb(${itemColor.r}, ${itemColor.g}, ${itemColor.b})`};
+  border: 3px solid ${({ itemColor }) => `rgb(${itemColor.r}, ${itemColor.g}, ${itemColor.b})`};
   padding: 10px;
   border-radius: 10px;
 `

@@ -14,7 +14,7 @@ export const Contracts = memo(() => {
       return <Typography color={"red"}>Error to load balance</Typography>
     }
 
-    return contracts.map(contract => <ContractItem {...contract} />)
+    return contracts.map(contract => <ContractItem key={contract.name} {...contract} />)
   }, [contracts, isError, isLoading])
 
   return (
