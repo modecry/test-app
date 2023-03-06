@@ -1,12 +1,12 @@
 import React, { memo, useMemo } from "react"
+import { utils } from "near-api-js"
 import { useQuery } from "react-query"
 import { Card, CardContent, Typography } from "@mui/material"
 import { NearService } from "@/core/services/Near.service"
 import { AccountBalance } from "near-api-js/lib/account"
 import { Loader } from "@/components/common"
-import { BalanceItem } from "@/pages/Home/components/Balance/BalanceItem"
 import { NearIconSvg } from "@/assets/icons"
-import { utils } from "near-api-js"
+import { BalanceItem } from "./BalanceItem"
 
 export const Balance = memo(() => {
   const { data, isLoading, isError } = useQuery<AccountBalance>(

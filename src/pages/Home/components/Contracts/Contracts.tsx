@@ -1,10 +1,11 @@
 import React, { memo, useMemo } from "react"
-import { useVewModel } from "@/pages/Home/components/Contracts/hooks/useVewModel"
 import { Card, CardContent, Typography } from "@mui/material"
 import { Loader } from "@/components/common"
-import { ContractItem } from "@/pages/Home/components/Contracts/components/ContractItem/Contract.item"
+import { ContractItem } from "./components/ContractItem/Contract.item"
+import { useVuewModel } from "./hooks/useVuewModel"
+
 export const Contracts = memo(() => {
-  const { contracts, isLoading, isError } = useVewModel()
+  const { contracts, isLoading, isError } = useVuewModel()
 
   const contractsContent = useMemo(() => {
     if (isLoading) {
