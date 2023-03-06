@@ -1,11 +1,12 @@
 import { KeyStore } from "near-api-js/lib/key_stores"
-import { keyStores, connect, WalletConnection } from "near-api-js"
+import { keyStores, connect, WalletConnection, Account } from "near-api-js"
 import { getConnectionConfig } from "@/core/services/utils/getConnectionConfig"
 import { Near } from "near-api-js/lib/near"
 
 export class NearService {
   public static store: KeyStore
   public static walletConnection: WalletConnection
+  public static account: Account
   private static connection: Near
 
   /**
@@ -16,6 +17,9 @@ export class NearService {
       NearService.store = new keyStores.BrowserLocalStorageKeyStore()
       await NearService.connect()
       await NearService.connectWallet()
+      if (NearService.walletConnection?.isSignedIn()) {
+        await NearService.initAccount()
+      }
     } catch (e) {
       throw e
     }
@@ -47,6 +51,9 @@ export class NearService {
     }
   }
 
+  /**
+   * Логин в near wallet
+   */
   public static logIn = async () => {
     try {
       await NearService.walletConnection.requestSignIn({
@@ -57,9 +64,21 @@ export class NearService {
     }
   }
 
+  /**
+   * Логаут из near
+   */
   public static logOut = async () => {
     try {
       await NearService.walletConnection.signOut()
+    } catch (e) {
+      throw e
+    }
+  }
+
+  private static initAccount = async () => {
+    try {
+      const accountId = NearService.walletConnection.getAccountId()
+      NearService.account = await NearService.connection.account(accountId)
     } catch (e) {
       throw e
     }
