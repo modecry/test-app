@@ -5,19 +5,16 @@ import { IContractItemProps } from "@/pages/Home/components/Contracts/components
 import { useMemo } from "react"
 import { useSnackbar } from "notistack"
 
+const contractName = "frontend-test-2.badconfig.testnet"
+
 export const useVewModel = () => {
-  const contract = useGetContract<IContractRGBMethods>("frontend-test-5.badconfig.testnet")
+  const contract = useGetContract<IContractRGBMethods>("frontend-test-2.badconfig.testnet")
   const snackbar = useSnackbar()
-  const {
-    data: RGBData,
-    isLoading,
-    isError,
-  } = useQuery("contract-frontend-test-5.badconfig.testnet", async () => await contract.get())
+  const { data: RGBData, isLoading, isError } = useQuery(contractName, async () => await contract.get())
 
   const handleChangeColor = async (rgbColor: IContractRGBValue) => {
     try {
       await contract.set({ r: rgbColor.r, g: rgbColor.g, b: rgbColor.b })
-      snackbar.enqueueSnackbar("Color saved in contract", { variant: "success" })
     } catch (e) {
       snackbar.enqueueSnackbar("Error saved color", { variant: "error" })
       throw e
@@ -26,12 +23,10 @@ export const useVewModel = () => {
 
   const contracts: IContractItemProps[] = useMemo(() => {
     if (RGBData && !isLoading) {
-      return [
-        { name: "contract-frontend-test-5.badconfig.testnet", rgbColor: RGBData, handleChangeRgb: handleChangeColor },
-      ]
+      return [{ name: contractName, rgbColor: RGBData, handleChangeRgb: handleChangeColor }]
     }
     return []
-  }, [RGBData, isLoading])
+  }, [RGBData, handleChangeColor, isLoading])
 
   return { contracts, isLoading, isError }
 }

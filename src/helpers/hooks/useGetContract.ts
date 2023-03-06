@@ -5,7 +5,7 @@ import { useMemo } from "react"
 
 export const useGetContract = <TMethods = unknown>(contractId: string) => {
   const contract = useMemo(() => {
-    return new Contract(NearService.account, contractId, {
+    return new Contract(NearService.walletConnection.account(), contractId, {
       viewMethods: ["get"],
       changeMethods: ["set"],
     }) as TContract<TMethods>

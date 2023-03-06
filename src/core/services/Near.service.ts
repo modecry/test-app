@@ -2,8 +2,6 @@ import { KeyStore } from "near-api-js/lib/key_stores"
 import { keyStores, connect, WalletConnection, Account } from "near-api-js"
 import { getConnectionConfig } from "@/core/services/utils/getConnectionConfig"
 import { Near } from "near-api-js/lib/near"
-import { utils, KeyPair } from "near-api-js"
-import { CONNECTION_CONFIG } from "@/core/constants"
 
 export class NearService {
   public static store: KeyStore
@@ -16,7 +14,7 @@ export class NearService {
    */
   public static init = async () => {
     try {
-      NearService.store = new keyStores.InMemoryKeyStore()
+      NearService.store = new keyStores.BrowserLocalStorageKeyStore()
 
       await NearService.connect()
       await NearService.connectWallet()
@@ -60,7 +58,7 @@ export class NearService {
   public static logIn = async () => {
     try {
       await NearService.walletConnection.requestSignIn({
-        successUrl: "http://localhost:3000", //todo: need read by envs
+        successUrl: process.env.REACT_APP_APP_URL, //todo: need read by envs
       })
     } catch (e) {
       throw e
@@ -78,20 +76,13 @@ export class NearService {
     }
   }
 
+  /**
+   * Инцилизация аккаунта
+   */
   private static initAccount = async () => {
     try {
       const accountId = NearService.walletConnection.getAccountId()
       NearService.account = await NearService.connection.account(accountId)
-      await NearService.setupKeyPair(accountId)
-    } catch (e) {
-      throw e
-    }
-  }
-
-  private static setupKeyPair = async (accountId: string) => {
-    try {
-      const keyPair = KeyPair.fromString(process.env.REACT_APP_PRIVATE_KEY)
-      await NearService.store.setKey(CONNECTION_CONFIG.networkId, accountId, keyPair)
     } catch (e) {
       throw e
     }
