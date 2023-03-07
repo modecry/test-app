@@ -7,7 +7,7 @@ import { useSnackbar } from "notistack"
 
 const contractName = "frontend-test-2.badconfig.testnet"
 
-export const useVuewModel = () => {
+export const useViewModel = () => {
   const contract = useGetContract<IContractRGBMethods>("frontend-test-2.badconfig.testnet")
   const snackbar = useSnackbar()
   const { data: RGBData, isLoading, isError } = useQuery(contractName, async () => await contract.get())

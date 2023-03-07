@@ -2,10 +2,10 @@ import React, { memo, useMemo } from "react"
 import { Card, CardContent, Typography } from "@mui/material"
 import { Loader } from "@/components/common"
 import { ContractItem } from "./components/ContractItem/Contract.item"
-import { useVuewModel } from "./hooks/useVuewModel"
+import { useViewModel } from "./hooks/useViewModel"
 
 export const Contracts = memo(() => {
-  const { contracts, isLoading, isError } = useVuewModel()
+  const { contracts, isLoading, isError } = useViewModel()
 
   const contractsContent = useMemo(() => {
     if (isLoading) {
