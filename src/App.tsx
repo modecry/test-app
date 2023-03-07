@@ -1,7 +1,6 @@
 import React from "react"
 import { ThemeProvider, NearProvider } from "@/helpers/providers"
-import { RouterProvider } from "react-router-dom"
-import { routes } from "@/pages/routes"
+import { AppRouter } from "@/pages/routes"
 import { SnackbarProvider } from "notistack"
 import { QueryClient, QueryClientProvider } from "react-query"
 
@@ -13,7 +12,7 @@ function App() {
       <SnackbarProvider>
         <NearProvider>
           <QueryClientProvider client={queryClient}>
-            <RouterProvider router={routes} />
+            <AppRouter />
           </QueryClientProvider>
         </NearProvider>
       </SnackbarProvider>

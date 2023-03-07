@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
-import "./reset.css"
+import { HashRouter } from "react-router-dom"
 // mui fonts
 import "@fontsource/roboto/300.css"
 import "@fontsource/roboto/400.css"
@@ -14,7 +14,9 @@ global.Buffer = Buffer
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <React.StrictMode>
-    <App />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </React.StrictMode>
 )
 

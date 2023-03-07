@@ -57,7 +57,7 @@ export class NearService {
    */
   public static logIn = async () => {
     try {
-      const successUrl = process.env.NODE_ENV === "development" ? process.env.REACT_APP_APP_URL : window.location.origin
+      const successUrl = process.env.REACT_APP_APP_URL
       await NearService.walletConnection.requestSignIn({
         successUrl,
       })
